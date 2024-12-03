@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DIY USB Rubber Ducky with CircuitPython for $10 | Sam&#x27;s Blog</title>
+  <link rel="stylesheet" type="text/css" href="sstock2005.github.io_static/style.css">
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-a11y-dark.min.css">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-coldark-dark.min.css">
+  </noscript>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script defer
+    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  
+</head>
+
+<body>
+  
+
+<aside class="sidebar" id="menu" data-pagefind-ignore="all">
+  <div class="sidebar-wrapper">
+    <div class="site-name">
+      <h1>Sam&#x27;s Blog</h1>
+    </div>
+    <nav>
+      <ul>
+        <li>
+  <a href="sstock2005.github.ioindex.html" title="index">index</a>
+</li>
+<li>
+  <details open>
+    <summary>posts</summary>
+    <ul>
+      <li>
+  <details open>
+    <summary>12.03.2024</summary>
+    <ul>
+      <li class="current">
+  <a href="sstock2005.github.ioposts&#x2f;12.03.2024&#x2f;DIY USB Rubber Ducky with CircuitPython for $10.html" title="DIY USB Rubber Ducky with CircuitPython for $10">DIY USB Rubber Ducky with CircuitPython for $10</a>
+</li>
+</ul>
+  </details>
+  
+</li>
+</ul>
+  </details>
+  
+</li>
+
+      </ul>
+    </nav>
+
+    <footer>
+      <p>Built with <a href="https://github/ecarrara/obsidian-garden">Obsidian Garden</a>.</p>
+    </footer>
+  </div>
+</aside>
+
+  <div class="main-area">
+    <div class="topnav">
+      <button id="toggle-menu">☰</button>
+      <nav><a title="My Website" href="https:&#x2f;&#x2f;sstock.dev">My Website</a><a title="My GitHub" href="https:&#x2f;&#x2f;github.com&#x2f;sstock2005">My GitHub</a></nav>
+      
+    </div>
+
+    <div class="actions">
+      <button id="toggle-metadata">☰ Metadata</button>
+    </div>
+
+    <main class="main-content">
+<article id="note-content" data-pagefind-body>
+  <header>
+    <h1 class="note-title">DIY USB Rubber Ducky with CircuitPython for $10</h1>
+  </header><p>Ever wanted to prank someone by changing their wallpaper or running a script when they walk away from their computer? It’s a lot easier than you think! I will show you how to create your own USB Rubber Ducky for just $10, a fraction of the cost of Hak5’s $70 Rubber Ducky!</p>
+<p>We’ll use the <strong>Adafruit Trinkey QT2040 - RP2040</strong> and CircuitPython to make a fully functional “keyboard injection” tool that can automate tasks, execute scripts, and more.</p>
+<hr />
+<h2>Materials You’ll Need</h2>
+<ol>
+<li><a href="https://www.adafruit.com/product/5056">Adafruit Trinkey QT2040 - RP2040</a></li>
+<li>A computer with USB ports.</li>
+<li>Basic programming tools like a text editor.</li>
+</ol>
+<hr />
+<h2>Step 1: Set Up CircuitPython</h2>
+<ol>
+<li>
+<p><strong>Download CircuitPython</strong><br />
+Visit the <a href="https://circuitpython.org/board/adafruit_qt2040_trinkey/">Adafruit CircuitPython page</a> and download the latest <code>.uf2</code> file for the QT2040 Trinkey.  (<strong>9.2.1</strong>)
+<img src="image1.png" alt="CircuitPython Download" /></p>
+</li>
+<li>
+<p><strong>Put the Trinkey into Bootloader Mode</strong></p>
+<ul>
+<li>Hold down the <strong>BOOT/BOOTSEL</strong> button (red in the image below).
+<img src="sstock2005.github.ioposts/12.03.2024/assets/buttons.jpg"></li>
+<li>While holding, press and release the <strong>Reset</strong> button (blue) and connect the Trinkey to your computer.</li>
+<li>Continue holding the <strong>BOOT/BOOTSEL</strong> button until the <code>RPI-RP2</code> drive appears.<br />
+<img src="image2.png" alt="Bootloader Mode" /></li>
+</ul>
+</li>
+<li>
+<p><strong>Copy the <code>.uf2</code> File</strong><br />
+Drag and drop the <code>.uf2</code> file onto the <code>RPI-RP2</code> drive. The device will restart, and you should now see a new drive labeled <code>CIRCUITPY</code>.<br />
+<img src="image3.png" alt="Drive Ready" /></p>
+</li>
+<li>
+<p><strong>Prepare for Coding</strong></p>
+<ul>
+<li>If you are missing a file named <code>code.py</code> on the <code>CIRCUITPY</code> drive, create it.</li>
+<li>If you are missing a folder named <code>lib</code> inside the <code>CIRCUITPY</code> drive, create it.</li>
+<li>Create a folder named <code>scripts</code> inside the <code>CIRCUITPY</code> drive for our scripts.
+<img src="sstock2005.github.ioposts/12.03.2024/assets/image.png"></li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>Step 2: Safe Mode</h2>
+<p>By default, the USB will try to run code every time you plug it in to a device (duh!). While we work on it we don’t want this, because it will also run anytime one of it’s files changes. To bypass this, when you plug in the device click the <code>RESET</code> button twice and the device should flash yellow 3 times, signaling it is in Safe mode. If you need a refresher on which button that is, please look at Step 1 again.</p>
+<hr />
+<h2>Step 3: Install Necessary Libraries</h2>
+<ol>
+<li>Download the <strong>CircuitPython 9.x Library Bundle</strong> from <a href="https://circuitpython.org/libraries">Adafruit Libraries</a>.</li>
+<li>Extract the bundle and copy these files to your <code>CIRCUITPY</code> drive:
+<ul>
+<li><strong><code>adafruit_hid</code></strong> folder (for USB HID functionality)</li>
+<li><strong><code>adafruit_ducky.mpy</code></strong> (for Rubber Ducky script support, place this in the <code>lib</code> folder).</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>Step 4: Write our <code>code.py</code></h2>
+<p>Open the <code>code.py</code> file and paste in the following Python code:</p>
+<pre><code class="language-python">from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
+from adafruit_hid.keyboard import Keyboard
+import adafruit_ducky
+import usb_hid
+import time
+
+time.sleep(1)
+
+keyboard = Keyboard(usb_hid.devices)
+keyboard_layout = KeyboardLayoutUS(keyboard)
+
+duck = adafruit_ducky.Ducky(&quot;scripts/ducky.txt&quot;, keyboard, keyboard_layout)
+
+while True:
+    result = duck.loop()
+    if not result:
+        break
+</code></pre>
+<p>We first import the libraries we installed when we copied over the files to <code>lib</code>. Then we have the USB sleep for a second to let it boot up. We create a <code>Keyboard</code> object and a <code>KeyboardLayoutUS</code> from the <code>Keyboard</code> object. We can then create a <code>Ducky</code> object from those two, and we point it to where our ducky script will be on the drive.</p>
+<p>Now that we have our variables, we then loop through the ducky script line by line until the script ends!</p>
+<hr />
+<h2>Step 5: Writing the Ducky Script</h2>
+<ol>
+<li>Create a new file called <code>ducky.txt</code> inside of our <code>scripts</code> folder on the <code>CIRCUITPY</code> drive and paste this in:</li>
+</ol>
+<pre><code>GUI x
+DELAY 500
+STRING a
+DELAY 500
+TAB
+DELAY 100
+TAB
+DELAY 100
+TAB
+DELAY 500
+ENTER
+DELAY 1000
+STRING echo &quot;you've been hacked!&quot; &gt; ([Environment]::GetFolderPath(&quot;Desktop&quot;) + &quot;\hacked.txt&quot;); exit;
+ENTER
+</code></pre>
+<ol start="2">
+<li>This script opens an administrative PowerShell session on Windows 11 and creates a text file on the desktop named <code>hacked.txt</code>. This takes about ~5 seconds to execute on my laptop.
+<img src="video1.mp4" alt="Ducky Script Showcase" /></li>
+</ol>
+<p>Try it out! Unplug your USB and plug it back in to see it work!</p>
+<hr />
+<h2>Advanced Use Case: Changing the Wallpaper</h2>
+<p>Now that you’ve had a taste! Let’s try doing some funny PowerShell stuff!</p>
+<p>Find a funny image you want to make your friends wallpaper. I’m going to use this one:
+<img src="sstock2005.github.ioposts/12.03.2024/assets/wallpaper.jpg"></p>
+<p>Create a new folder on your <code>CIRCUITPY</code> called <code>resources</code> and put your image there! Make sure it’s named <code>wallpaper.jpg</code>.</p>
+<h3>PowerShell Time!</h3>
+<p>Create a new text file in <code>scripts</code> called <code>iexscript.txt</code> on the <code>CIRCUITPY</code> drive and paste the following in:</p>
+<pre><code class="language-powershell">$WallpaperPath = ((Get-Volume -FileSystemLabel 'CIRCUITPY').DriveLetter + &quot;:\resources\wallpaper.jpg&quot;)
+
+Add-Type @&quot;
+using System.Runtime.InteropServices;
+public class Wallpaper {
+    [DllImport(&quot;user32.dll&quot;, CharSet = CharSet.Auto)]
+    public static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
+}
+&quot;@
+
+[Wallpaper]::SystemParametersInfo(0x0014, 0, $WallpaperPath, 0x01 -bor 0x02)
+exit
+</code></pre>
+<p>This is a simple PowerShell script that we are going to call with our ducky script! It creates a C# object that contains code to replace a user’s wallpaper and then calls it in PowerShell!</p>
+<h3>Back to <code>ducky.txt</code>!</h3>
+<p>Open your <code>ducky.txt</code> inside of your <code>scripts</code> folder in the <code>CIRCUITPY</code> drive, delete what you have and paste in the following:</p>
+<pre><code>GUI x
+DELAY 500
+STRING a
+DELAY 500
+TAB
+DELAY 100
+TAB
+DELAY 100
+TAB
+DELAY 500
+ENTER
+DELAY 1000
+STRING IEX (Get-Content ((Get-Volume -FileSystemLabel 'CIRCUITPY').DriveLetter + &quot;:\scripts\iexscript.txt&quot;) -Raw);
+ENTER
+</code></pre>
+<p>This code will (again) open an administrative PowerShell, but this time it will use <code>IEX</code>. Essentially <code>IEX</code> will execute the statement after it, and the whole <code>Get-Content</code> thing basically finds our cool <code>iexscript.txt</code> file on our USB and give it to <code>IEX</code> and <code>IEX</code> runs it! <strong>Make sure you have a <code>resources</code> folder and a <code>wallpaper.jpg</code> file inside of it or this script will not work!</strong></p>
+<p>Try it out! Unplug your USB and plug it in to see it work!</p>
+<p><img src="video2.mp4" alt="Wallpaper Showcase" /></p>
+<hr />
+<p>Congratulations! You’re now a master hacker and can prank your friends by changing their wallpaper!</p>
+<hr />
+<p>Please reach out to me if you have any comments or feedback! Contact: <a href="mailto:sstock2005.business@gmail.com">sstock2005.business@gmail.com</a></p>
+
+</article>
+
+<aside class="right-sidebar" id="article-aside">
+  <div class="section">
+    <h3 class="section-title">Relationships</h3>
+    <div class="network-graph" id="graph"></div>
+  </div>
+
+  <nav class="section toc hide" id="toc-section">
+    <h3 class="section-title">On this page</h3>
+  </nav>
+</aside>
+
+</main>
+  </div>
+
+  <script type="module">
+    import {initGraph, toc} from "sstock2005.github.io_static/script.js"
+    const currentPath = "posts/12.03.2024/DIY USB Rubber Ducky with CircuitPython for $10"
+    const graph = {"edge_property":"directed","edges":[],"node_holes":[],"nodes":["posts/12.03.2024/DIY USB Rubber Ducky with CircuitPython for $10"]}
+
+    const g = initGraph(currentPath, graph)
+    document.getElementById("graph").appendChild(g.node())
+
+    const menuEl = document.getElementById("menu")
+    const rightSidebar = document.getElementById("article-aside")
+
+    document.getElementById("toggle-menu").addEventListener("click", (event) => {
+      menuEl.classList.toggle("show")
+      rightSidebar.classList.remove("show")
+      event.stopPropagation()
+    })
+    document.getElementById("toggle-metadata").addEventListener("click", (event) => {
+      rightSidebar.classList.toggle("show")
+      menuEl.classList.remove("show")
+      event.stopPropagation()
+    })
+    document.addEventListener("click", (event) => {
+      if (!menuEl.contains(event.target)) {
+        menuEl.classList.remove("show")
+      }
+
+      if (!rightSidebar.contains(event.target)) {
+        rightSidebar.classList.remove("show")
+      }
+    })
+
+    const articleEl = document.getElementById("note-content")
+    const tocSectionEl = document.getElementById("toc-section")
+    toc(articleEl, tocSectionEl)
+  </script>
+</body>
+
+</html>
