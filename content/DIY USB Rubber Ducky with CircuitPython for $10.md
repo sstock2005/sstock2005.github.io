@@ -1,6 +1,3 @@
----
-tags: []
----
 Ever wanted to prank someone by changing their wallpaper or running a script when they walk away from their computer? It's a lot easier than you think! I will show you how to create your own USB Rubber Ducky for just \$10, a fraction of the cost of Hak5's \$70 Rubber Ducky!
 
 We'll use the **Adafruit Trinkey QT2040 - RP2040** and CircuitPython to make a fully functional "keyboard injection" tool that can automate tasks, execute scripts, and more.
