@@ -24,7 +24,7 @@ We'll use the **Adafruit Trinkey QT2040 - RP2040** and CircuitPython to make a f
     - Continue holding the **BOOT/BOOTSEL** button until the `RPI-RP2` drive appears.  
         ![Bootloader Mode](image2.png)
 3. **Copy the `.uf2` File**  
-    Drag and drop the `.uf2` file onto the `RPI-RP2` drive. The device will restart, and you should now see a new drive labeled `CIRCUITPY`.  
+    Drag and drop the `.uf2` file that you downloaded earlier onto the `RPI-RP2` drive. The device will restart, and you should now see a new drive labeled `CIRCUITPY`.  
     ![Drive Ready](image3.png)
     
 4. **Prepare for Coding**
@@ -44,9 +44,11 @@ By default, the USB will try to run code every time you plug it in to a device (
 ## Step 3: Install Necessary Libraries
 
 1. Download the **CircuitPython 9.x Library Bundle** from [Adafruit Libraries](https://circuitpython.org/libraries).
-2. Extract the bundle and copy these files to your `CIRCUITPY` drive:
+2. Extract the bundle and copy these files to your `CIRCUITPY` drive, place both folder and file in `lib`:
     - **`adafruit_hid`** folder (for USB HID functionality)
-    - **`adafruit_ducky.mpy`** (for Rubber Ducky script support, place this in the `lib` folder).
+    - **`adafruit_ducky.mpy`** (for Rubber Ducky script support)
+
+or [Download my premade bundle for 9.x](https://blog.sstock.dev/downloads/bundle.zip)
 
 ---
 
@@ -83,7 +85,7 @@ Now that we have our variables, we then loop through the ducky script line by li
 
 ## Step 5: Writing the Ducky Script
 
-1. Create a new file called `ducky.txt` inside of our `scripts` folder on the `CIRCUITPY` drive and paste this in:
+1. Create a new text file named `ducky` inside of our `scripts` folder on the `CIRCUITPY` drive and paste this in:
 ```
 GUI x
 DELAY 500
@@ -100,7 +102,7 @@ DELAY 1000
 STRING echo "you've been hacked!" > ([Environment]::GetFolderPath("Desktop") + "\hacked.txt"); exit;
 ENTER
 ```
-2. This script opens an administrative PowerShell session on Windows 11 and creates a text file on the desktop named `hacked.txt`. This takes about ~5 seconds to execute on my laptop.
+2. This script opens an administrative PowerShell session on Windows 11 and creates a text file on the desktop named `hacked`. This takes about ~5 seconds to execute on my laptop.
 ![Ducky Script Showcase](video1.mp4)
 
 Try it out! Unplug your USB and plug it back in to see it work!
