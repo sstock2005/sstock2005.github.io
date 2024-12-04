@@ -48,7 +48,7 @@ By default, the USB will try to run code every time you plug it in to a device (
     - **`adafruit_hid`** folder (for USB HID functionality)
     - **`adafruit_ducky.mpy`** (for Rubber Ducky script support)
 
-or [Download my premade bundle for 9.x](https://blog.sstock.dev/downloads/bundle.zip)
+or [download my premade bundle for 9.x](https://blog.sstock.dev/static/downloads/bundle.zip)
 
 ---
 
