@@ -77,6 +77,7 @@ while True:
         break
 ```
 
+**Code Explanation**
 We first import the libraries we installed when we copied over the files to `lib`. Then we have the USB sleep for a second to let it boot up. We create a `Keyboard` object and a `KeyboardLayoutUS` from the `Keyboard` object. We can then create a `Ducky` object from those two, and we point it to where our ducky script will be on the drive.
 
 Now that we have our variables, we then loop through the ducky script line by line until the script ends!
@@ -136,6 +137,7 @@ public class Wallpaper {
 exit
 ```
 
+**Code Explanation**
 This is a simple PowerShell script that we are going to call with our ducky script! It creates a C# object that contains code to replace a user's wallpaper and then calls it in PowerShell!
 ### Step 2: Back to `ducky.txt`!
 
