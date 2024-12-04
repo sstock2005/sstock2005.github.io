@@ -19,7 +19,12 @@ const config: QuartzConfig = {
     baseUrl: "blog.sstock.dev",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
-    generateSocialImages: true,
+    generateSocialImages: {
+      colorScheme: "darkMode",
+      width: 1200,
+      height: 630,
+      excludeRoot: false,
+    },
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
